@@ -18,17 +18,133 @@ document.querySelectorAll(".nav-link").forEach((link) => {
 
 
 // ============================================
+// PREMIUM CUSTOM CURSOR
+// ============================================
+
+const cursorDot = document.querySelector(".cursor-dot");
+const cursorOutline = document.querySelector(".cursor-outline");
+const cursorGlow = document.querySelector(".cursor-glow");
+const supportsFinePointer =
+  window.matchMedia("(hover: hover) and (pointer: fine)").matches &&
+  !window.matchMedia("(max-width: 768px)").matches;
+
+if (cursorDot && cursorOutline && cursorGlow && supportsFinePointer) {
+  document.body.classList.add("custom-cursor-active");
+
+  let targetX = window.innerWidth / 2;
+  let targetY = window.innerHeight / 2;
+  let outlineX = targetX;
+  let outlineY = targetY;
+  let glowX = targetX;
+  let glowY = targetY;
+  let dotX = targetX;
+  let dotY = targetY;
+
+  const magneticItems = document.querySelectorAll(".btn, .nav-cta, button, .view-btn");
+  const interactiveItems = document.querySelectorAll("a, button, .btn, .nav-link, .nav-cta, .menu-icon, .view-btn");
+
+  const setCursorPosition = (element, x, y) => {
+    element.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
+  };
+
+  const resetMagnetic = (element) => {
+    element.style.setProperty("--magnetic-x", "0px");
+    element.style.setProperty("--magnetic-y", "0px");
+  };
+
+  const animateCursor = () => {
+    dotX += (targetX - dotX) * 0.35;
+    dotY += (targetY - dotY) * 0.35;
+    outlineX += (targetX - outlineX) * 0.16;
+    outlineY += (targetY - outlineY) * 0.16;
+    glowX += (targetX - glowX) * 0.1;
+    glowY += (targetY - glowY) * 0.1;
+
+    setCursorPosition(cursorDot, dotX, dotY);
+    setCursorPosition(cursorOutline, outlineX, outlineY);
+    setCursorPosition(cursorGlow, glowX, glowY);
+
+    window.requestAnimationFrame(animateCursor);
+  };
+
+  const showCursor = () => {
+    document.body.classList.add("cursor-visible");
+    document.body.classList.remove("cursor-hidden");
+  };
+
+  const hideCursor = () => {
+    document.body.classList.add("cursor-hidden");
+    document.body.classList.remove("cursor-visible");
+  };
+
+  window.addEventListener("mousemove", (event) => {
+    targetX = event.clientX;
+    targetY = event.clientY;
+    showCursor();
+  }, { passive: true });
+
+  window.addEventListener("mousedown", () => {
+    cursorDot.classList.add("is-pressed");
+    cursorOutline.classList.add("is-pressed");
+  });
+
+  window.addEventListener("mouseup", () => {
+    cursorDot.classList.remove("is-pressed");
+    cursorOutline.classList.remove("is-pressed");
+  });
+
+  document.addEventListener("mouseleave", hideCursor);
+  document.addEventListener("mouseenter", showCursor);
+
+  interactiveItems.forEach((item) => {
+    item.addEventListener("mouseenter", () => {
+      cursorDot.classList.add("is-hover");
+      cursorOutline.classList.add("is-hover");
+    });
+
+    item.addEventListener("mouseleave", () => {
+      cursorDot.classList.remove("is-hover");
+      cursorOutline.classList.remove("is-hover");
+    });
+  });
+
+  magneticItems.forEach((item) => {
+    item.addEventListener("mousemove", (event) => {
+      const rect = item.getBoundingClientRect();
+      const offsetX = event.clientX - (rect.left + rect.width / 2);
+      const offsetY = event.clientY - (rect.top + rect.height / 2);
+      item.style.setProperty("--magnetic-x", `${offsetX * 0.14}px`);
+      item.style.setProperty("--magnetic-y", `${offsetY * 0.14}px`);
+    });
+
+    item.addEventListener("mouseleave", () => {
+      resetMagnetic(item);
+    });
+  });
+
+  window.addEventListener("blur", hideCursor);
+  window.addEventListener("resize", () => {
+    targetX = Math.min(targetX, window.innerWidth);
+    targetY = Math.min(targetY, window.innerHeight);
+  });
+
+  animateCursor();
+} else {
+  document.body.classList.remove("custom-cursor-active", "cursor-visible", "cursor-hidden");
+}
+
+
+// ============================================
 // ACTIVE NAV LINK ON SCROLL
 // ============================================
 
-window.addEventListener("scroll", () => {
+const updateActiveNavLink = () => {
   const sections = document.querySelectorAll("section");
   const navLinks = document.querySelectorAll(".nav-link");
 
   let current = "";
   sections.forEach((section) => {
     const sectionTop = section.offsetTop;
-    const sectionHeight = section.clientHeight;
     if (pageYOffset >= sectionTop - 200) {
       current = section.getAttribute("id");
     }
@@ -36,11 +152,15 @@ window.addEventListener("scroll", () => {
 
   navLinks.forEach((link) => {
     link.classList.remove("active");
-    if (link.getAttribute("href").slice(1) === current) {
+    const href = link.getAttribute("href");
+    if (href && href.startsWith("#") && href.slice(1) === current) {
       link.classList.add("active");
     }
   });
-});
+};
+
+window.addEventListener("scroll", updateActiveNavLink);
+window.addEventListener("load", updateActiveNavLink);
 
 
 // ============================================
@@ -78,7 +198,8 @@ document.querySelectorAll(".about, .skills, .work, .contact, .work-card, .info-i
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   anchor.addEventListener("click", function (e) {
     e.preventDefault();
-    const target = document.querySelector(this.getAttribute("href"));
+    const targetSelector = this.getAttribute("href");
+    const target = document.querySelector(targetSelector);
     if (target) {
       const offsetTop = target.offsetTop - 80;
       window.scrollTo({

@@ -4,68 +4,427 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Daniel | Home</title>
-  <link rel="stylesheet" href="style.css"/>
+
+  <!-- Your existing main stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+  
+  <!-- Boxicons & extra fonts for animations -->
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+
+  <style>
+    /* ---------- ADD-ON STYLES (does not break your existing design) ---------- */
+    
+    /* Ambient Background Glows */
+    .bg-glow {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .bg-glow-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      will-change: transform, opacity;
+    }
+
+    .bg-glow-orb.orb-1 {
+      width: 520px;
+      height: 520px;
+      top: -140px;
+      left: -100px;
+      background: radial-gradient(circle, rgba(79,124,255,0.09) 0%, transparent 70%);
+      animation: orbFloat1 9s ease-in-out infinite;
+    }
+
+    .bg-glow-orb.orb-2 {
+      width: 480px;
+      height: 480px;
+      bottom: -120px;
+      right: -80px;
+      background: radial-gradient(circle, rgba(100,180,255,0.07) 0%, transparent 70%);
+      animation: orbFloat2 11s ease-in-out infinite;
+    }
+
+    .bg-glow-orb.orb-3 {
+      width: 340px;
+      height: 340px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(79,124,255,0.04) 0%, transparent 70%);
+      animation: orbFloat3 14s ease-in-out infinite;
+    }
+
+    @keyframes orbFloat1 {
+      0%, 100% { transform: translate(0,0) scale(1); opacity: 1; }
+      50% { transform: translate(30px,20px) scale(1.06); opacity: 0.75; }
+    }
+    @keyframes orbFloat2 {
+      0%, 100% { transform: translate(0,0) scale(1); opacity: 1; }
+      50% { transform: translate(-24px,-18px) scale(1.08); opacity: 0.7; }
+    }
+    @keyframes orbFloat3 {
+      0%, 100% { transform: translate(-50%,-50%) scale(1); opacity: 0.6; }
+      50% { transform: translate(-50%,-50%) scale(1.12); opacity: 0.9; }
+    }
+
+    /* Grid Overlay */
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image: linear-gradient(rgba(79,124,255,0.03) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(79,124,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
+    }
+
+    /* Page Wipe Reveal */
+    .page-wipe {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: #4f7cff;
+      transform-origin: left center;
+      animation: wipeOut 0.9s cubic-bezier(0.76,0,0.24,1) 0.05s forwards;
+    }
+
+    @keyframes wipeOut {
+      0%   { transform: scaleX(1); transform-origin: left center; }
+      49%  { transform: scaleX(0); transform-origin: left center; }
+      50%  { transform: scaleX(0); transform-origin: right center; }
+      100% { transform: scaleX(0); transform-origin: right center; visibility: hidden; }
+    }
+
+    /* Scroll Hint */
+    .scroll-hint {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      opacity: 0;
+      animation: fadeInScroll 0.5s ease 2.2s forwards;
+    }
+
+    .scroll-hint span {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #8888a0;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(180deg, #4f7cff 0%, transparent 100%);
+      animation: scrollDrop 1.5s ease-in-out infinite 2.5s;
+    }
+
+    @keyframes scrollDrop {
+      0%   { transform: scaleY(0); transform-origin: top; opacity: 1; }
+      50%  { transform: scaleY(1); transform-origin: top; opacity: 1; }
+      51%  { transform: scaleY(1); transform-origin: bottom; opacity: 1; }
+      100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
+    }
+
+    @keyframes fadeInScroll {
+      to { opacity: 1; }
+    }
+
+    /* Hero title animations (word-by-word + typewriter) */
+    .hero-title-main {
+      display: block;
+      overflow: hidden;
+    }
+
+    .word-wrap {
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: bottom;
+      margin-right: 0.25em;
+    }
+
+    .word {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(110%);
+      animation: wordUp 0.75s cubic-bezier(0.22,1,0.36,1) forwards;
+    }
+
+    @keyframes wordUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-title-accent {
+      display: block;
+      color: #4f7cff;
+      min-height: 1.1em;
+    }
+
+    #typewriter-text {
+      display: inline;
+    }
+
+    .type-char {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.18s ease, transform 0.22s cubic-bezier(0.22,1,0.36,1);
+    }
+
+    .type-char.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .type-cursor {
+      display: inline-block;
+      width: 3px;
+      height: 0.85em;
+      background: #4f7cff;
+      margin-left: 4px;
+      vertical-align: middle;
+      border-radius: 2px;
+      opacity: 0;
+      animation: cursorBlink 0.75s step-end infinite;
+      box-shadow: 0 0 8px #4f7cff;
+    }
+
+    .type-cursor.active { opacity: 1; }
+    .type-cursor.done   { animation: cursorFade 0.6s ease 1.2s forwards; }
+
+    @keyframes cursorBlink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+    @keyframes cursorFade {
+      to { opacity: 0; }
+    }
+
+    /* Card tilt effect (preserve your card structure) */
+    .hero-card {
+      position: relative;
+      transition: transform 0.2s;
+    }
+
+    .hero-card-front {
+      transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s;
+      will-change: transform;
+    }
+
+    /* Responsive: hide scroll hint on mobile */
+    @media (max-width: 900px) {
+      .scroll-hint {
+        display: none;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<header class="header">
-  <a href="index.html" class="logo">Daniel<span>.</span></a>
-  <nav class="navbar">
-    <a href="index.html" class="nav-link active">Home</a>
-    <a href="about.html" class="nav-link">About</a>
-    <a href="skills.html" class="nav-link">Skills</a>
-    <a href="work.html" class="nav-link">Work</a>
-    <a href="contact.html" class="nav-link nav-cta">Contact</a>
-  </nav>
-  <div class="menu-icon"><i class='bx bx-menu'></i></div>
-</header>
+  <!-- Page wipe overlay -->
+  <div class="page-wipe"></div>
 
-<section class="home" id="home">
-  <div class="hero-wrapper">
-    <div class="hero-intro">
-      <span class="hero-dot"></span>
-      <p>Hi! I'm Daniel - Based in Lusaka, Zambia</p>
+  <!-- Custom cursor elements -->
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-outline" aria-hidden="true"></div>
+  <div class="cursor-glow" aria-hidden="true"></div>
+
+  <!-- Ambient background elements -->
+  <div class="bg-grid"></div>
+  <div class="bg-glow" aria-hidden="true">
+    <div class="bg-glow-orb orb-1"></div>
+    <div class="bg-glow-orb orb-2"></div>
+    <div class="bg-glow-orb orb-3"></div>
+  </div>
+
+  <!-- Scroll hint -->
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+
+  <!-- Your existing header -->
+  <header class="header">
+    <a href="index.html" class="logo">Daniel<span>.</span></a>
+    <nav class="navbar">
+      <a href="#home" class="nav-link active">Home</a>
+      <a href="skills.html" class="nav-link">Skills</a>
+      <a href="work.html" class="nav-link">Work</a>
+      <a href="contact.html" class="nav-link nav-cta">Contact</a>
+    </nav>
+    <div class="menu-icon"><i class='bx bx-menu'></i></div>
+  </header>
+
+  <!-- Hero section (corner lines and badge removed) -->
+  <section class="home" id="home">
+    <div class="hero-wrapper">
+
+      <!-- Hero intro (unchanged) -->
+      <div class="hero-intro">
+        <span class="hero-dot"></span>
+        <p>Hi! I'm Daniel - Based in Lusaka, Zambia</p>
+      </div>
+
+      <!-- Home content with animated title -->
+      <div class="home-content">
+        <h1 class="hero-title">
+          <span class="hero-title-main" id="animated-line1"></span>
+          <span class="hero-title-accent">
+            <span id="typewriter-text"></span><span class="type-cursor" id="type-cursor"></span>
+          </span>
+        </h1>
+
+        <p class="hero-description">
+          I build polished websites and intuitive interfaces that solve problems,
+          elevate brands, and create meaningful digital experiences.
+        </p>
+      </div>
+
+      <!-- Visual card (no badge, no corner lines) -->
+      <div class="home-visual" aria-hidden="true">
+        <div class="hero-card">
+          <div class="hero-card-back"></div>
+          <div class="hero-card-front">
+            <img src="assets/daniel.png" alt="Daniel" class="hero-card-image" />
+          </div>
+        </div>
+        <!-- "Explore" badge removed as requested -->
+      </div>
     </div>
+  </section>
 
-    <div class="home-content">
-      <h1 class="hero-title">
-        <span class="hero-title-main">Web Developer &</span>
-        <span class="hero-title-accent">UI Designer</span>
-      </h1>
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-head">
+        <span class="about-kicker">ABOUT ME</span>
+        <h2 class="section-title">Designing Thoughtful Digital Experiences</h2>
+      </div>
 
-      <p class="hero-description">
-        I build polished websites and intuitive interfaces that solve problems,
-        elevate brands, and create meaningful digital experiences.
-      </p>
-    </div>
+      <div class="about-wrapper">
+        <div class="about-panel about-panel-highlight">
+          <p class="about-message">
+            If you have a project in mind check out my work and contact me to work
+            together. <span class="about-emphasis">Best of Luck.</span>
+          </p>
+        </div>
 
-    <div class="home-visual" aria-hidden="true">
-      <div class="hero-card">
-        <div class="hero-card-back"></div>
-        <div class="hero-card-front">
-          <img src="assets/daniel.png" alt="" class="hero-card-image" />
+        <div class="about-panel about-content">
+          <p class="about-intro">
+            I'm a passionate web developer with a keen eye for design. I specialize
+            in software engineering, cyber security, building modern, responsive
+            websites that deliver exceptional user experiences and drive business
+            results.
+          </p>
         </div>
       </div>
-      <div class="hero-badge">
-        <span>Explore</span>
+    </div>
+  </section>
+
+  <!-- Your existing footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Daniel. All rights reserved.</p>
+      <div class="footer-socials">
+        <a href="#"><i class='bx bxl-facebook'></i></a>
+        <a href="#"><i class='bx bxl-twitter'></i></a>
+        <a href="#"><i class='bx bxl-linkedin'></i></a>
+        <a href="#"><i class='bx bxl-github'></i></a>
       </div>
     </div>
-  </div>
-</section>
+  </footer>
 
-<footer class="footer">
-  <div class="container">
-    <p>&copy; 2026 Daniel. All rights reserved.</p>
-    <div class="footer-socials">
-      <a href="#"><i class='bx bxl-facebook'></i></a>
-      <a href="#"><i class='bx bxl-twitter'></i></a>
-      <a href="#"><i class='bx bxl-linkedin'></i></a>
-      <a href="#"><i class='bx bxl-github'></i></a>
-    </div>
-  </div>
-</footer>
+  <!-- Your existing script.js (kept) -->
+  <script src="script.js"></script>
 
-<script src="script.js"></script>
+  <!-- Additional animations & features -->
+  <script>
+    (function() {
+      // ----- 1. Word-by-word for "Web Developer &" -----
+      const line1Words = ['Web', 'Developer', '&'];
+      const container = document.getElementById('animated-line1');
+      if (container) {
+        line1Words.forEach((word, idx) => {
+          const wrap = document.createElement('span');
+          wrap.className = 'word-wrap';
+          const inner = document.createElement('span');
+          inner.className = 'word';
+          inner.textContent = word;
+          inner.style.animationDelay = (0.75 + idx * 0.13) + 's';
+          wrap.appendChild(inner);
+          container.appendChild(wrap);
+        });
+      }
+
+      // ----- 2. Typewriter for "UI Designer" -----
+      const typeText = 'UI Designer';
+      const typeEl = document.getElementById('typewriter-text');
+      const typeCursor = document.getElementById('type-cursor');
+      if (typeEl && typeCursor) {
+        setTimeout(() => {
+          typeCursor.classList.add('active');
+          // Create character spans
+          [...typeText].forEach((ch) => {
+            const span = document.createElement('span');
+            span.className = 'type-char';
+            span.textContent = ch === ' ' ? '\u00A0' : ch;
+            typeEl.appendChild(span);
+          });
+          const chars = typeEl.querySelectorAll('.type-char');
+          chars.forEach((char, i) => {
+            setTimeout(() => {
+              char.classList.add('visible');
+              if (i === chars.length - 1) {
+                setTimeout(() => {
+                  typeCursor.classList.remove('active');
+                  typeCursor.classList.add('done');
+                }, 600);
+              }
+            }, i * 72);
+          });
+        }, 1420);
+      }
+
+      // ----- 3. Card tilt effect -----
+      const card = document.querySelector('.hero-card');
+      const cardFront = document.querySelector('.hero-card-front');
+      if (card && cardFront) {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const cx = rect.left + rect.width / 2;
+          const cy = rect.top + rect.height / 2;
+          const dx = (e.clientX - cx) / (rect.width / 2);
+          const dy = (e.clientY - cy) / (rect.height / 2);
+          cardFront.style.transform = `perspective(600px) rotateY(${dx * 8}deg) rotateX(${-dy * 8}deg) translateY(-6px)`;
+        });
+        card.addEventListener('mouseleave', () => {
+          cardFront.style.transform = '';
+        });
+      }
+
+      // ----- 4. Scroll hint fade on scroll -----
+      const scrollHint = document.querySelector('.scroll-hint');
+      if (scrollHint) {
+        window.addEventListener('scroll', () => {
+          if (window.scrollY > 60) {
+            scrollHint.style.opacity = '0';
+            scrollHint.style.transition = 'opacity 0.4s';
+          }
+        }, { passive: true });
+      }
+
+    })();
+  </script>
+
 </body>
 </html>

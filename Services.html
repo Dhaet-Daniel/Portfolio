@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Daniel | Services</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"/>
+  <style>
+    /* ----- Additional styles for Skills → Services Card Layout ----- */
+    /* This works alongside your existing style.css without conflicts */
+
+    .services {
+      padding: 100px 5%;
+      background: linear-gradient(135deg, rgba(13, 20, 48, 0.3) 0%, rgba(7, 11, 26, 0.3) 100%);
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      color: #fff;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 70px;
+      height: 4px;
+      background: #4f7cff;
+      margin: 1rem auto 0;
+      border-radius: 4px;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .service-card {
+      background: rgba(19, 19, 30, 0.55);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(79, 124, 255, 0.15);
+      border-radius: 24px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      cursor: pointer;
+    }
+
+    .service-card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(79, 124, 255, 0.5);
+      background: rgba(19, 19, 30, 0.8);
+      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(79, 124, 255, 0.2), 0 0 20px rgba(79, 124, 255, 0.15);
+    }
+
+    .service-card i {
+      font-size: 3rem;
+      color: #4f7cff;
+      margin-bottom: 1.2rem;
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+
+    .service-card:hover i {
+      transform: scale(1.05);
+    }
+
+    .service-card h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+
+    .service-card p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #bcbcbc;
+      margin: 0;
+    }
+
+    /* Extra polish – add a subtle glow on hover */
+    .service-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 24px;
+      background: radial-gradient(circle at 50% 0%, rgba(79, 124, 255, 0.1), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s;
+      pointer-events: none;
+    }
+
+    .service-card:hover::after {
+      opacity: 1;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .services {
+        padding: 70px 5%;
+      }
+      .service-card {
+        padding: 1.5rem;
+      }
+      .service-card h3 {
+        font-size: 1.3rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .services-grid {
+        gap: 1.2rem;
+      }
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <a href="index.html" class="logo">Daniel<span>.</span></a>
+  <nav class="navbar">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="skills.html" class="nav-link active">Services</a>
+    <a href="work.html" class="nav-link">Work</a>
+    <a href="contact.html" class="nav-link nav-cta">Contact</a>
+  </nav>
+  <div class="menu-icon"><i class='bx bx-menu'></i></div>
+</header>
+
+<!-- SERVICES SECTION (modern card layout, replacing old skill bars) -->
+<section class="services" id="services">
+  <div class="container">
+    <h2 class="section-title">My Services</h2>
+    <div class="services-grid">
+      
+      <!-- Card 1: Frontend Development -->
+      <div class="service-card">
+        <i class='bx bx-code-alt'></i>
+        <h3>Frontend Development</h3>
+        <p>
+          Building responsive, high‑performance interfaces using modern frameworks like React, JavaScript, HTML5, CSS3, and ensuring cross‑browser compatibility.
+        </p>
+      </div>
+
+      <!-- Card 2: Backend & APIs -->
+      <div class="service-card">
+        <i class='bx bx-server'></i>
+        <h3>Backend & APIs</h3>
+        <p>
+          Creating scalable server‑side logic, RESTful APIs, and database integration with Node.js, Python, PHP, and MySQL.
+        </p>
+      </div>
+
+      <!-- Card 3: UI/UX Design -->
+      <div class="service-card">
+        <i class='bx bx-palette'></i>
+        <h3>UI/UX Design</h3>
+        <p>
+          Designing intuitive, user‑centered interfaces with Figma, wireframing, prototyping, and interactive design systems.
+        </p>
+      </div>
+
+      <!-- Card 4: Full‑Stack Development -->
+      <div class="service-card">
+        <i class='bx bx-layer'></i>
+        <h3>Full‑Stack Solutions</h3>
+        <p>
+          End‑to‑end web application development from frontend to backend, database management, and deployment.
+        </p>
+      </div>
+
+      <!-- Card 5: Performance Optimization -->
+      <div class="service-card">
+        <i class='bx bx-tachometer'></i>
+        <h3>Performance SEO</h3>
+        <p>
+          Speed audits, SEO best practices, Core Web Vitals improvements, and accessibility enhancements.
+        </p>
+      </div>
+
+      <!-- Card 6: Maintenance & Support -->
+      <div class="service-card">
+        <i class='bx bx-support'></i>
+        <h3>Maintenance & Support</h3>
+        <p>
+          Ongoing website maintenance, security updates, bug fixes, and technical consulting.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2026 Daniel. All rights reserved.</p>
+    <div class="footer-socials">
+       <a href="https://instagram.com/yourusername" target="_blank" rel="noopener noreferrer"><i class='bx bxl-instagram'></i></a>
+        <a href="https://www.facebook.com/Dhaet Daniel" target="_blank" rel="noopener noreferrer"><i class='bx bxl-facebook'></i></a>
+        <a href="https://twitter.com/@dhae15264" target="_blank" rel="noopener noreferrer"><i class='bx bxl-twitter'></i></a>
+        <a href="#"><i class='bx bxl-linkedin'></i></a>
+        <a href="https://github.com/Dhaet-Daniel" target="_blank" rel="noopener noreferrer"><i class='bx bxl-github'></i></a>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

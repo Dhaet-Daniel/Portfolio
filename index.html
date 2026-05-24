@@ -259,7 +259,7 @@
     <a href="index.html" class="logo">Daniel<span>.</span></a>
     <nav class="navbar">
       <a href="#home" class="nav-link active">Home</a>
-      <a href="skills.html" class="nav-link">Skills</a>
+      <a href="Services.html" class="nav-link">Services</a>
       <a href="work.html" class="nav-link">Work</a>
       <a href="contact.html" class="nav-link nav-cta">Contact</a>
     </nav>
@@ -313,10 +313,13 @@
 
       <div class="about-wrapper">
         <div class="about-panel about-panel-highlight">
-          <p class="about-message">
-            If you have a project in mind check out my work and contact me to work
-            together. <span class="about-emphasis">Best of Luck.</span>
-          </p>
+          <div class="about-highlight-content">
+            <p class="about-message">
+              If you have a project in mind check out my work and contact me to work
+              together. <span class="about-emphasis">Best of Luck.</span>
+            </p>
+            <a href="contact.html" class="about-contact-btn nav-cta">Contact</a>
+          </div>
         </div>
 
         <div class="about-panel about-content">
@@ -336,10 +339,11 @@
     <div class="container">
       <p>&copy; 2026 Daniel. All rights reserved.</p>
       <div class="footer-socials">
-        <a href="#"><i class='bx bxl-facebook'></i></a>
-        <a href="#"><i class='bx bxl-twitter'></i></a>
+        <a href="https://instagram.com/yourusername" target="_blank" rel="noopener noreferrer"><i class='bx bxl-instagram'></i></a>
+        <a href="https://www.facebook.com/Dhaet Daniel" target="_blank" rel="noopener noreferrer"><i class='bx bxl-facebook'></i></a>
+        <a href="https://twitter.com/@dhae15264" target="_blank" rel="noopener noreferrer"><i class='bx bxl-twitter'></i></a>
         <a href="#"><i class='bx bxl-linkedin'></i></a>
-        <a href="#"><i class='bx bxl-github'></i></a>
+        <a href="https://github.com/Dhaet-Daniel" target="_blank" rel="noopener noreferrer"><i class='bx bxl-github'></i></a>
       </div>
     </div>
   </footer>
@@ -366,32 +370,58 @@
         });
       }
 
-      // ----- 2. Typewriter for "UI Designer" -----
-      const typeText = 'UI Designer';
+      // ----- 2. Looping typewriter for accent role -----
+      const typePhrases = ['UI Designer'];
       const typeEl = document.getElementById('typewriter-text');
       const typeCursor = document.getElementById('type-cursor');
+
+      const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+      const createTypeChar = (character) => {
+        const span = document.createElement('span');
+        span.className = 'type-char';
+        span.textContent = character === ' ' ? '\u00A0' : character;
+        return span;
+      };
+
+      const typePhrase = async (phrase, speed) => {
+        for (const character of phrase) {
+          const charNode = createTypeChar(character);
+          typeEl.appendChild(charNode);
+          await wait(16);
+          charNode.classList.add('visible');
+          await wait(speed);
+        }
+      };
+
+      const deletePhrase = async (speed) => {
+        const chars = Array.from(typeEl.querySelectorAll('.type-char'));
+
+        for (let i = chars.length - 1; i >= 0; i -= 1) {
+          chars[i].classList.remove('visible');
+          await wait(speed);
+          chars[i].remove();
+        }
+      };
+
       if (typeEl && typeCursor) {
         setTimeout(() => {
-          typeCursor.classList.add('active');
-          // Create character spans
-          [...typeText].forEach((ch) => {
-            const span = document.createElement('span');
-            span.className = 'type-char';
-            span.textContent = ch === ' ' ? '\u00A0' : ch;
-            typeEl.appendChild(span);
-          });
-          const chars = typeEl.querySelectorAll('.type-char');
-          chars.forEach((char, i) => {
-            setTimeout(() => {
-              char.classList.add('visible');
-              if (i === chars.length - 1) {
-                setTimeout(() => {
-                  typeCursor.classList.remove('active');
-                  typeCursor.classList.add('done');
-                }, 600);
-              }
-            }, i * 72);
-          });
+          typeCursor.classList.remove('done');
+
+          const runTypewriterLoop = async () => {
+            let phraseIndex = 0;
+
+            while (true) {
+              typeCursor.classList.add('active');
+              await typePhrase(typePhrases[phraseIndex], 72);
+              await wait(2000);
+              await deletePhrase(40);
+              await wait(180);
+              phraseIndex = (phraseIndex + 1) % typePhrases.length;
+            }
+          };
+
+          runTypewriterLoop();
         }, 1420);
       }
 

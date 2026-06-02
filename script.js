@@ -197,8 +197,12 @@ document.querySelectorAll(".about, .skills, .work, .contact, .work-card, .info-i
 
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   anchor.addEventListener("click", function (e) {
-    e.preventDefault();
     const targetSelector = this.getAttribute("href");
+    if (!targetSelector || targetSelector === "#") {
+      return;
+    }
+
+    e.preventDefault();
     const target = document.querySelector(targetSelector);
     if (target) {
       const offsetTop = target.offsetTop - 80;

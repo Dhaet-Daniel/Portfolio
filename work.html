@@ -61,6 +61,16 @@
         <h3 class="work-title">Mobile App Design</h3>
         <p class="work-desc">iOS and Android app interface design</p>
       </div>
+      <!-- Phishing Detector -->
+      <div class="work-card">
+        <div class="work-image">
+          <img src="assets/projects/phishing-detector/thumbnail.png" alt="Phishing Detector"/>
+          <div class="work-overlay"><a href="#" class="view-btn" data-project="phishing-detector">View Project</a></div>
+        </div>
+        <h3 class="work-title">Phishing Detector</h3>
+        <p class="work-category">Cyber Security / Machine Learning</p>
+        <p class="work-desc">AI-powered platform that analyzes emails, detects phishing attempts, tracks scan history, and provides an admin command center for monitoring users, scan results, trusted domains, feature requests, and platform activity.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -78,6 +88,46 @@
   </div>
 </footer>
 
-<script src="script.js"></script>
+  <!-- Phishing Detector project details modal -->
+  <div class="project-modal-overlay" id="phishingModal" aria-hidden="true">
+    <div class="project-modal" role="dialog" aria-modal="true" aria-labelledby="phishingModalTitle">
+      <button class="modal-close" type="button" aria-label="Close project details">&times;</button>
+
+      <div class="modal-head">
+        <div>
+          <span class="modal-badge">Featured Project</span>
+          <h2 class="section-title" id="phishingModalTitle">Phishing Detector</h2>
+        </div>
+      </div>
+
+      <div class="modal-gallery">
+        <button class="modal-nav modal-prev" type="button" aria-label="Previous screenshot">&#8249;</button>
+        <div class="gallery-window">
+          <img class="gallery-image" src="assets/projects/phishing-detector/thumbnail.png" alt="Email Analysis Result Page" />
+        </div>
+        <button class="modal-nav modal-next" type="button" aria-label="Next screenshot">&#8250;</button>
+      </div>
+
+      <div class="gallery-thumbs">
+        <button class="gallery-thumb active" type="button" data-src="assets/projects/phishing-detector/thumbnail.png" data-alt="Email Analysis Result Page">
+          <img src="assets/projects/phishing-detector/thumbnail.png" alt="Thumbnail preview" />
+        </button>
+        <button class="gallery-thumb" type="button" data-src="assets/projects/phishing-detector/prediction-history.png" data-alt="Prediction History Page">
+          <img src="assets/projects/phishing-detector/prediction-history.png" alt="Thumbnail preview" />
+        </button>
+        <button class="gallery-thumb" type="button" data-src="assets/projects/phishing-detector/admin-dashboard.png" data-alt="Admin Command Center">
+          <img src="assets/projects/phishing-detector/admin-dashboard.png" alt="Thumbnail preview" />
+        </button>
+      </div>
+
+      <div class="modal-copy">
+        <p class="modal-copy-label"><strong>Purpose:</strong> Detect phishing emails and provide real-time analysis, history tracking, and admin oversight.</p>
+        <p class="modal-copy-label"><strong>Technologies Used:</strong> Python, Scikit-learn, Flask, React, Tailwind CSS.</p>
+        <p class="modal-copy-label"><strong>Key Features:</strong> Email analysis with threat score, prediction history log, admin dashboard (users, scan results, feedback, trusted domains, feature flags, feature requests, user requests).</p>
+        <p class="modal-copy-label"><strong>Challenges Solved:</strong> Handling real-time predictions, building an interactive history view, and designing a role-based admin panel.</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
-</html>

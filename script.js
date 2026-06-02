@@ -231,6 +231,92 @@ document.querySelectorAll(".progress").forEach((progress) => {
 
 
 // ============================================
+// PROJECT MODAL: Phishing Detector
+// ============================================
+
+const phishingModal = document.getElementById('phishingModal');
+if (phishingModal) {
+  const galleryImage = phishingModal.querySelector('.gallery-image');
+  const thumbButtons = Array.from(phishingModal.querySelectorAll('.gallery-thumb'));
+  const prevBtn = phishingModal.querySelector('.modal-prev');
+  const nextBtn = phishingModal.querySelector('.modal-next');
+  const closeBtn = phishingModal.querySelector('.modal-close');
+  const projectTriggers = document.querySelectorAll('.view-btn[data-project="phishing-detector"]');
+
+  const galleryItems = [
+    { src: 'assets/projects/phishing-detector/thumbnail.png', alt: 'Email Analysis Result Page' },
+    { src: 'assets/projects/phishing-detector/prediction-history.png', alt: 'Prediction History Page' },
+    { src: 'assets/projects/phishing-detector/admin-dashboard.png', alt: 'Admin Command Center' }
+  ];
+
+  let currentIndex = 0;
+
+  const updateGallery = (index) => {
+    currentIndex = (index + galleryItems.length) % galleryItems.length;
+    const item = galleryItems[currentIndex];
+    galleryImage.src = item.src;
+    galleryImage.alt = item.alt;
+    thumbButtons.forEach((button, idx) => {
+      button.classList.toggle('active', idx === currentIndex);
+    });
+  };
+
+  const openModal = () => {
+    updateGallery(0);
+    phishingModal.classList.add('active');
+    phishingModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeModal = () => {
+    phishingModal.classList.remove('active');
+    phishingModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  };
+
+  projectTriggers.forEach((trigger) => {
+    trigger.addEventListener('click', (event) => {
+      event.preventDefault();
+      openModal();
+    });
+  });
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      updateGallery(currentIndex - 1);
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      updateGallery(currentIndex + 1);
+    });
+  }
+
+  thumbButtons.forEach((button, index) => {
+    button.addEventListener('click', () => {
+      updateGallery(index);
+    });
+  });
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeModal);
+  }
+
+  phishingModal.addEventListener('click', (event) => {
+    if (event.target === phishingModal) {
+      closeModal();
+    }
+  });
+
+  window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && phishingModal.classList.contains('active')) {
+      closeModal();
+    }
+  });
+}
+
+// ============================================
 // FORM SUBMISSION
 // ============================================
 

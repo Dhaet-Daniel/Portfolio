@@ -248,6 +248,7 @@ if (phishingModal) {
   const projectTriggers = document.querySelectorAll('.view-btn[data-project="phishing-detector"]');
 
   const galleryItems = [
+    { src: 'assets/projects/phishing-detector/landing.png', alt: 'PhishGuard landing page' },
     { src: 'assets/projects/phishing-detector/thumbnail.png', alt: 'Email Analysis Result Page' },
     { src: 'assets/projects/phishing-detector/prediction-history.png', alt: 'Prediction History Page' },
     { src: 'assets/projects/phishing-detector/admin-dashboard.png', alt: 'Admin Command Center' }
@@ -319,6 +320,87 @@ if (phishingModal) {
     }
   });
 }
+
+// ============================================
+// PROJECT MODAL: MediBook
+// ============================================
+
+(() => {
+  const modal = document.getElementById('medibookModal');
+  if (!modal) return;
+
+  const dialog = modal.querySelector('.project-modal');
+  const galleryImage = modal.querySelector('.gallery-image');
+  const thumbButtons = Array.from(modal.querySelectorAll('.gallery-thumb'));
+  const prevBtn = modal.querySelector('.modal-prev');
+  const nextBtn = modal.querySelector('.modal-next');
+  const closeBtn = modal.querySelector('.modal-close');
+  const projectTriggers = document.querySelectorAll('.view-btn[data-project="medibook"]');
+  const galleryItems = thumbButtons.map((button) => ({
+    src: button.dataset.src,
+    alt: button.dataset.alt
+  }));
+
+  let currentIndex = 0;
+  let previousTrigger = null;
+
+  const updateGallery = (index) => {
+    currentIndex = (index + galleryItems.length) % galleryItems.length;
+    const item = galleryItems[currentIndex];
+    galleryImage.src = item.src;
+    galleryImage.alt = item.alt;
+
+    thumbButtons.forEach((button, buttonIndex) => {
+      const isActive = buttonIndex === currentIndex;
+      button.classList.toggle('active', isActive);
+      button.setAttribute('aria-pressed', String(isActive));
+    });
+  };
+
+  const openModal = (trigger) => {
+    previousTrigger = trigger;
+    updateGallery(0);
+    modal.classList.add('active');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    dialog.focus();
+  };
+
+  const closeModal = () => {
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    previousTrigger?.focus();
+  };
+
+  projectTriggers.forEach((trigger) => {
+    trigger.addEventListener('click', (event) => {
+      event.preventDefault();
+      openModal(trigger);
+    });
+  });
+
+  prevBtn?.addEventListener('click', () => updateGallery(currentIndex - 1));
+  nextBtn?.addEventListener('click', () => updateGallery(currentIndex + 1));
+
+  thumbButtons.forEach((button, index) => {
+    button.addEventListener('click', () => updateGallery(index));
+  });
+
+  closeBtn?.addEventListener('click', closeModal);
+
+  modal.addEventListener('click', (event) => {
+    if (event.target === modal) closeModal();
+  });
+
+  window.addEventListener('keydown', (event) => {
+    if (!modal.classList.contains('active')) return;
+
+    if (event.key === 'Escape') closeModal();
+    if (event.key === 'ArrowLeft') updateGallery(currentIndex - 1);
+    if (event.key === 'ArrowRight') updateGallery(currentIndex + 1);
+  });
+})();
 
 // ============================================
 // FORM SUBMISSION

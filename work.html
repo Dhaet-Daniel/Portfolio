@@ -46,11 +46,12 @@
       <!-- Project 3 -->
       <div class="work-card">
         <div class="work-image">
-          <img src="assets/daniel.png" alt="Project 3"/>
-          <div class="work-overlay"><a href="#" class="view-btn">View Project</a></div>
+          <img src="assets/projects/medibook/landing-page.png" alt="MediBook landing page" loading="lazy"/>
+          <div class="work-overlay"><a href="#" class="view-btn" data-project="medibook">View Project</a></div>
         </div>
-        <h3 class="work-title">Dashboard UI</h3>
-        <p class="work-desc">Analytics dashboard with real-time data</p>
+        <h3 class="work-title">MediBook</h3>
+        <p class="work-category">Healthcare / Full-Stack Web Application</p>
+        <p class="work-desc">A modern hospital appointment booking platform with role-based dashboards for patients, doctors, and administrators - featuring real-time scheduling, secure authentication, and comprehensive clinic management.</p>
       </div>
       <!-- Project 4 -->
       <div class="work-card">
@@ -64,7 +65,7 @@
       <!-- Phishing Detector -->
       <div class="work-card">
         <div class="work-image">
-          <img src="assets/projects/phishing-detector/thumbnail.png" alt="Phishing Detector"/>
+          <img src="assets/projects/phishing-detector/landing.png" alt="PhishGuard landing page"/>
           <div class="work-overlay"><a href="#" class="view-btn" data-project="phishing-detector">View Project</a></div>
         </div>
         <h3 class="work-title">Phishing Detector</h3>
@@ -103,13 +104,16 @@
       <div class="modal-gallery">
         <button class="modal-nav modal-prev" type="button" aria-label="Previous screenshot">&#8249;</button>
         <div class="gallery-window">
-          <img class="gallery-image" src="assets/projects/phishing-detector/thumbnail.png" alt="Email Analysis Result Page" />
+          <img class="gallery-image" src="assets/projects/phishing-detector/landing.png" alt="PhishGuard landing page" />
         </div>
         <button class="modal-nav modal-next" type="button" aria-label="Next screenshot">&#8250;</button>
       </div>
 
       <div class="gallery-thumbs">
-        <button class="gallery-thumb active" type="button" data-src="assets/projects/phishing-detector/thumbnail.png" data-alt="Email Analysis Result Page">
+        <button class="gallery-thumb active" type="button" data-src="assets/projects/phishing-detector/landing.png" data-alt="PhishGuard landing page">
+          <img src="assets/projects/phishing-detector/landing.png" alt="Landing page preview" />
+        </button>
+        <button class="gallery-thumb" type="button" data-src="assets/projects/phishing-detector/thumbnail.png" data-alt="Email Analysis Result Page">
           <img src="assets/projects/phishing-detector/thumbnail.png" alt="Thumbnail preview" />
         </button>
         <button class="gallery-thumb" type="button" data-src="assets/projects/phishing-detector/prediction-history.png" data-alt="Prediction History Page">
@@ -125,6 +129,64 @@
         <p class="modal-copy-label"><strong>Technologies Used:</strong> Python, Scikit-learn, Flask, React, Tailwind CSS.</p>
         <p class="modal-copy-label"><strong>Key Features:</strong> Email analysis with threat score, prediction history log, admin dashboard (users, scan results, feedback, trusted domains, feature flags, feature requests, user requests).</p>
         <p class="modal-copy-label"><strong>Challenges Solved:</strong> Handling real-time predictions, building an interactive history view, and designing a role-based admin panel.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MediBook project details modal -->
+  <div class="project-modal-overlay medibook-modal" id="medibookModal" aria-hidden="true">
+    <div class="project-modal" role="dialog" aria-modal="true" aria-labelledby="medibookModalTitle" tabindex="-1">
+      <button class="modal-close" type="button" aria-label="Close MediBook project details">&times;</button>
+
+      <div class="modal-head">
+        <div>
+          <span class="modal-badge">Featured Project</span>
+          <h2 class="section-title" id="medibookModalTitle">MediBook</h2>
+        </div>
+      </div>
+
+      <div class="modal-gallery">
+        <button class="modal-nav modal-prev" type="button" aria-label="Show previous screenshot">&#8249;</button>
+        <div class="gallery-window">
+          <img class="gallery-image" src="assets/projects/medibook/landing-page.png" alt="MediBook landing page" />
+        </div>
+        <button class="modal-nav modal-next" type="button" aria-label="Show next screenshot">&#8250;</button>
+      </div>
+
+      <div class="gallery-thumbs" aria-label="MediBook screenshots">
+        <button class="gallery-thumb active" type="button" data-src="assets/projects/medibook/landing-page.png" data-alt="MediBook landing page" aria-label="View Landing Page screenshot">
+          <img src="assets/projects/medibook/landing-page.png" alt="Landing Page preview" loading="lazy" />
+        </button>
+        <button class="gallery-thumb" type="button" data-src="assets/projects/medibook/patient-dashboard.png" data-alt="MediBook patient dashboard" aria-label="View Patient Dashboard screenshot">
+          <img src="assets/projects/medibook/patient-dashboard.png" alt="Patient Dashboard preview" loading="lazy" />
+        </button>
+        <button class="gallery-thumb" type="button" data-src="assets/projects/medibook/patient-booking.png" data-alt="MediBook patient booking wizard" aria-label="View Booking Wizard screenshot">
+          <img src="assets/projects/medibook/patient-booking.png" alt="Booking Wizard preview" loading="lazy" />
+        </button>
+        <button class="gallery-thumb" type="button" data-src="assets/projects/medibook/admin-dashboard.png" data-alt="MediBook admin dashboard" aria-label="View Admin Dashboard screenshot">
+          <img src="assets/projects/medibook/admin-dashboard.png" alt="Admin Dashboard preview" loading="lazy" />
+        </button>
+        <button class="gallery-thumb" type="button" data-src="assets/projects/medibook/doctor-dashboard.png" data-alt="MediBook doctor dashboard" aria-label="View Doctor Dashboard screenshot">
+          <img src="assets/projects/medibook/doctor-dashboard.png" alt="Doctor Dashboard preview" loading="lazy" />
+        </button>
+      </div>
+
+      <div class="modal-copy">
+        <p class="modal-copy-label"><strong>Purpose:</strong> Streamline healthcare access by connecting patients with trusted specialists through an intuitive booking system, while providing doctors and administrators with powerful management tools.</p>
+        <p class="modal-copy-label"><strong>Technologies Used:</strong> Node.js, Express, MongoDB, Mongoose, HTML5, CSS3, JavaScript (ES6), JWT Authentication, REST API.</p>
+        <div class="modal-copy-label">
+          <strong>Key Features:</strong>
+          <ul class="modal-feature-list">
+            <li>Patient booking wizard with real-time availability</li>
+            <li>Doctor dashboard (schedule, patient management, availability)</li>
+            <li>Admin dashboard (user management, analytics, system settings)</li>
+            <li>Secure authentication with role-based access control (patient, doctor, admin)</li>
+            <li>Responsive design with dark mode</li>
+            <li>Multi-language support</li>
+            <li>Real-time appointment updates</li>
+          </ul>
+        </div>
+        <p class="modal-copy-label"><strong>Challenges Solved:</strong> Building a scalable role-based architecture, implementing secure JWT authentication, designing a responsive and accessible interface, integrating real-time data synchronization across patient, doctor, and admin views, and building a multi-step booking wizard with validation.</p>
       </div>
     </div>
   </div>

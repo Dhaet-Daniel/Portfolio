@@ -953,6 +953,20 @@ a {
   color: #ffffff;
 }
 
+.medibook-modal .modal-feature-list {
+  margin: 0.6rem 0 0 1.2rem;
+  color: var(--color-text-muted);
+}
+
+.medibook-modal .modal-feature-list li + li {
+  margin-top: 0.35rem;
+}
+
+.medibook-modal button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
 @media (max-width: 900px) {
   .modal-gallery {
     grid-template-columns: 1fr;
